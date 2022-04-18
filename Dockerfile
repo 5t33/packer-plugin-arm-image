@@ -16,6 +16,7 @@ COPY . .
 
 RUN go build -o packer-plugin-arm-image
 
+
 FROM docker.io/library/ubuntu:focal
 
 RUN apt-get update -qq \
@@ -35,5 +36,5 @@ RUN wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER
 WORKDIR /build
 COPY entrypoint.sh /entrypoint.sh
 
-COPY --from=builder /build/packer-plugin-arm-image /bin/packer-plugin-arm-image
+COPY --from=builder /build/packer-plugin-arm-image /.config/packer/packer-plugin-arm-image
 ENTRYPOINT ["/entrypoint.sh"]
